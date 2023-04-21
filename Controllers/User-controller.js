@@ -1,4 +1,4 @@
-const {User, Thoughts} = require('../models')
+const {User, Thought} = require('../models')
 
 module.exports = {
     //Get all Users
@@ -55,7 +55,7 @@ module.exports = {
             if(!user){
                 res.status(404).json({message: 'No User with that ID'});
             }
-            await Thoughts.deleteMany({ _id : { $in: user.Thoughts}});
+            await Thoughts.deleteMany({ _id : { $in: user.Thought}});
             res.json({message: 'User and thoughts deleted'})
         } catch(err) {
             res.status(500).json(err);

@@ -47,7 +47,7 @@ module.exports = {
             res.status(500).json(err);
         };
     },
-    //Delte user
+    //Delte thought
     async deletethoughts(req, res) {
         try{
             const thought = await User.findoneandDelete({_id: req.params.userId});
