@@ -40,7 +40,7 @@ module.exports = {
                 {runValidators: true, new:true}
             );
             if(!user){
-                res.status(404).json({ message: 'No course with this id!'});
+                res.status(404).json({ message: 'No user with this id!'});
             }
             res.json(user);
         }catch(err){
