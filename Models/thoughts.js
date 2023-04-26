@@ -2,7 +2,7 @@ const { Schema, model, Types } = require('mongoose');
 const { Thought } = require('.');
 
 
-const thoughtsSchema = new Schema(
+const ThoughtsSchema = new Schema(
     {
         thoughtText: {
             type: String,
@@ -57,11 +57,10 @@ const reactionSchema = new Schema(
         id: false
     }
 );
-thoughtsSchema.virtuals('reactionCount').get(function(){
+ThoughtsSchema.virtuals('reactionCount').get(function(){
     return this.reactions.length;
 });
-thoughtsSchema.virtuals()
 
-const Thought = model('Thought', thoughtsSchema);
+const Thought = model('Thought', ThoughtsSchema);
 
 module.exports = Thought;
