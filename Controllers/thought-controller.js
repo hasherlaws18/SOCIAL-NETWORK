@@ -4,8 +4,8 @@ module.exports = {
     //Get all Thoughts
     async getThought(req, res) {
         try{
-            const thought = await Thought.find();
-            res.json(thought);
+            const thoughts = await Thought.find();
+            res.json(thoughts);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -25,7 +25,7 @@ module.exports = {
     },
     async PostNewThought(req, res) {
         try {
-            const thought = await this.PostNewThought.create(req.body);
+            const thought = await Thought.create(req.body);
             res.json(thought); 
         } catch (err) {
             res.status(500).json(err);
@@ -34,7 +34,7 @@ module.exports = {
     // Update Thought
     async PutThought(req, res) {
         try{
-            const thought = await user.findOneandUpdate(
+            const thought = await Thought.findOneandUpdate(
                 {_id: req.params.thoughtId},
                 { $set: req.body},
                 {runValidators: true, new:true}
@@ -50,13 +50,12 @@ module.exports = {
     //Delte thought
     async deletethoughts(req, res) {
         try{
-            const thought = await User.findoneandDelete({_id: req.params.userId});
+            const thought = await Thought.findOneAndRemove({_id: req.params.thoughtId});
 
             if(!thought){
-                res.status(404).json({message: 'No User with that ID'});
+                res.status(404).json({message: 'No Thought with that ID'});
             }
-            await Thoughts.deleteMany({ _id : { $in: user.Thoughts}});
-            res.json({message: 'User and thoughts deleted'})
+            res.json({message: 'thoughts are deleted'})
         } catch(err) {
             res.status(500).json(err);
         }
