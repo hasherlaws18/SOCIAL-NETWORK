@@ -25,16 +25,17 @@ module.exports = {
     },
     async PostNewUser(req, res) {
         try {
-            const user = await this.PostNewUser.create(req.body);
+            const user = await User.create(req.body);
             res.json(user); 
         } catch (err) {
             res.status(500).json(err);
+            console.log(err)
         }
     },
     // Update User
     async PutUser(req, res) {
         try{
-            const user = await user.findOneandUpdate(
+            const user = await User.findOneandUpdate(
                 {_id: req.params.userId},
                 { $set: req.body},
                 {runValidators: true, new:true}
@@ -50,15 +51,16 @@ module.exports = {
     //Delte user
     async deleteUser(req, res) {
         try{
-            const user = await User.findoneandDelete({_id: req.params.userId});
+            const user = await User.findOneAndDelete({_id: req.params.userId});
 
             if(!user){
                 res.status(404).json({message: 'No User with that ID'});
             }
-            await Thoughts.deleteMany({ _id : { $in: user.Thought}});
+            await Thought.deleteMany({ _id : { $in: user.thoughts}});
             res.json({message: 'User and thoughts deleted'})
         } catch(err) {
             res.status(500).json(err);
+            console.log(err)
         }
     },
 }
