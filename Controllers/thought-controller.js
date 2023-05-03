@@ -60,4 +60,37 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+
+    async AddReaction(req, res) {
+        try{
+            const thought = await Thought.findOneandUpdate(
+                {_id: req.params.thoughtId},
+                {$addToSet: {reactions: req.body}}
+            );
+
+            if(!thought){
+                res.status(404).json({message: 'No Thought with that ID'});
+            }
+            res.json(thought);
+        } catch(err){
+            res.status(500).json(err);
+        }
+    },
+
+    async RemoveReaction(req, res) {
+        try{
+            const thought = await Thought.findOneandUpdate(
+                {_id: req.params.thoughtId},
+                {$pull: {reactions: {reactionId: req.params.reactionId}}},
+                {new: true}
+            );
+
+            if(!thought){
+                return res.status(404).json({message: 'No Thought was found'})
+            }
+            res.json(thought);
+        } catch(err){
+            res.status(500).json(err);
+        }
+    },
 }
